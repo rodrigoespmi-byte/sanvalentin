@@ -56,3 +56,141 @@
             background-color: white;
             color: #ff0066;
             position: relative;
+        }
+
+        #surprise {
+            margin-top: 25px;
+            background: #fff;
+            color: #d1006c;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        #surprise:hover {
+            background: #ffd6e7;
+        }
+
+        .hidden-message {
+            display: none;
+            font-size: 1.5rem;
+            color: #8b004b;
+            margin-top: 15px;
+        }
+
+        .hidden-message a {
+            color: #b30059;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .fotos {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .fotos img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: fadeIn 2s;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatUp 4s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1;}
+            100% { transform: translateY(-200px); opacity: 0;}
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Para mi princesa ❤️</h1>
+    <h2>¿Quieres ser mi San Valentín? ❤️</h2>
+
+    <div class="btn-container">
+        <button id="yes">¡Sí, obvio bebecin! 💕</button>
+        <button id="no">No, chau desaparece 🤢</button>
+    </div>
+
+    <!-- Botón sorpresa -->
+    <button id="surprise">🎁 ¿Sorpresa?</button>
+
+    <!-- Mensaje oculto con link a GeoGebra -->
+<div class="hidden-message" id="hiddenMsg">
+    💗 Eres la mejor. Gracias por hacer mis días más bonitos. 💗
+    <br /><br />
+
+    👉 Y aquí va otra sorpresita:
+    <a id="geogebraLink" href="https://www.geogebra.org/m/e3yvpnkc" target
+</div>
+
+<!-- Fotos -->
+<div class="fotos">
+    <img src="foto1.jpeg" alt
+</div>
+
+    <script>
+        const btnNo = document.getElementById("no");
+
+        // Botón "No" escapa
+        btnNo.addEventListener("mouseover", () => {
+            const x = Math.random() * window.innerWidth * 0.7;
+            const y = Math.random() * window.innerHeight * 0.7;
+            btnNo.style.position = "absolute";
+            btnNo.style.left = x + "px";
+            btnNo.style.top = y + "px";
+        });
+
+        // Corazones flotando
+        function crearCorazon() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.textContent = Math.random() < 0.5 ? "💗" : "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = "100vh";
+            heart.style.fontSize = (Math.random() * 30 + 10) + "px";
+
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(crearCorazon, 300);
+
+        // Acción del botón "Sí"
+        document.getElementById("yes").onclick = () => {
+            document.body.innerHTML = `
+                <h1>¡Lo sabía! jiji 💗</h1>
+                <h2>Te quiero mucho, princesa ❤️</h2>
+                <h3>Nos vemos el 14/02/26 💐</h3>
+            `;
+        };
+
+        // Botón sorpresa
+        const surpriseBtn = document.getElementById("surprise");
+        surpriseBtn.onclick = () => {
+            const msg = document.getElementById("hiddenMsg");
+            msg.style.display = "block";
+            msg.scrollIntoView({ behavior: "smooth", block: "center" });
+        };
+    </script>
+
+</body>
+</html>
+
